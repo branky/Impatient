@@ -20,20 +20,18 @@
 
 package impatient;
 
-import org.junit.Test;
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
 
 import cascading.tuple.Fields;
 
-public class ScrubTest
-  {
-  @Test
-  public void testMain() throws Exception
-    {
-    ScrubTest tester = new ScrubTest();
-    Fields fieldDeclaration = new Fields( "doc_id", "token" );
-    ScrubFunction scrub = new ScrubFunction( fieldDeclaration );
+public class ScrubTest {
+	@Test
+	public void testMain() throws Exception {
+		Fields fieldDeclaration = new Fields("doc_id", "token");
+		ScrubFunction scrub = new ScrubFunction(fieldDeclaration);
 
-    assertEquals( "Scrub", "foo bar", scrub.scrubText( "FoO BAR  " ) );
-    }
-  }
+		assertEquals("Scrub", "foo bar", scrub.scrubText("FoO BAR  "));
+	}
+}
