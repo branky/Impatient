@@ -3,10 +3,14 @@
 **/output
 **/.idea
 **/.gradle
-
+**/.project
+**/.classpath
+**/.settings
 *~
 *.dot
 *.class
+.settings
+.project
 
 # Package Files #
 *.jar
