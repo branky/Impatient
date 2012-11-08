@@ -20,18 +20,40 @@
 
 package impatient;
 
-import static org.junit.Assert.assertEquals;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.junit.Test;
 
+import cascading.CascadingTestCase;
+import cascading.operation.Function;
 import cascading.tuple.Fields;
+import cascading.tuple.Tuple;
+import cascading.tuple.TupleListCollector;
 
-public class ScrubTest {
+public class ScrubTest extends CascadingTestCase {
+	
 	@Test
-	public void testMain() throws Exception {
+	public void testScrub() {
 		Fields fieldDeclaration = new Fields("doc_id", "token");
-		ScrubFunction scrub = new ScrubFunction(fieldDeclaration);
-
-		assertEquals("Scrub", "foo bar", scrub.scrubText("FoO BAR  "));
+		Function scrub = new ScrubFunction(fieldDeclaration);
+		Tuple[] arguments = new Tuple[] {
+				new Tuple("doc_1", "FoO"),
+				new Tuple("doc_1", " BAR "),
+				new Tuple("doc_1", "     ") // will be scrubed
+		};
+		
+		ArrayList<Tuple> expectResults = new ArrayList<Tuple> ();
+		expectResults.add(new Tuple("doc_1", "foo"));
+		expectResults.add(new Tuple("doc_1", "bar"));
+		
+		TupleListCollector collector = invokeFunction(scrub, arguments, Fields.ALL);
+		Iterator<Tuple> it = collector.iterator();
+		ArrayList<Tuple> results = new ArrayList<Tuple>();
+		while (it.hasNext()) {
+			results.add(it.next());
+		}
+		assertEquals("Scrub result is not expected", expectResults, results);
+		
 	}
 }
