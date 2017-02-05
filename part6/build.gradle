@@ -45,11 +45,13 @@ repositories {
 
 ext.cascadingVersion = '3.1.0'
 ext.hadoopVersion = '2.6.0'
+ext.flinkVersion = '0.3.0'
 
 dependencies {
   compile group: 'cascading', name: 'cascading-core', version: cascadingVersion
   compile group: 'cascading', name: 'cascading-hadoop2-mr1', version: cascadingVersion
   compile( group: 'cascading', name: 'cascading-expression', version: cascadingVersion )
+  compile( group: 'com.data-artisans', name: 'cascading-flink', version: flinkVersion )
 
 
   provided( group: 'org.apache.hadoop', name: 'hadoop-common', version: hadoopVersion )

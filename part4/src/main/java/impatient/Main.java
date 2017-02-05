@@ -20,20 +20,13 @@
 
 package impatient;
 
-import java.util.Properties;
-
 import cascading.flow.Flow;
 import cascading.flow.FlowConnector;
 import cascading.flow.FlowDef;
-import cascading.flow.hadoop2.Hadoop2MR1FlowConnector;
 import cascading.operation.aggregator.Count;
 import cascading.operation.regex.RegexFilter;
 import cascading.operation.regex.RegexSplitGenerator;
-import cascading.pipe.Each;
-import cascading.pipe.Every;
-import cascading.pipe.GroupBy;
-import cascading.pipe.HashJoin;
-import cascading.pipe.Pipe;
+import cascading.pipe.*;
 import cascading.pipe.assembly.Retain;
 import cascading.pipe.joiner.LeftJoin;
 import cascading.property.AppProps;
@@ -41,6 +34,9 @@ import cascading.scheme.hadoop.TextDelimited;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
 import cascading.tuple.Fields;
+import com.dataartisans.flink.cascading.FlinkConnector;
+
+import java.util.Properties;
 
 
 public class Main
@@ -56,7 +52,7 @@ public class Main
     AppProps.setApplicationName( properties, "Impatient Part 4" );
     AppProps.addApplicationTag( properties, "tutorial:impatient" );
     AppProps.addApplicationTag( properties, "technology:Cascading" );
-    FlowConnector flowConnector = new Hadoop2MR1FlowConnector( properties );
+    FlowConnector flowConnector = new FlinkConnector( properties );
 
     // create source and sink taps
     Tap docTap = new Hfs( new TextDelimited( true, "\t" ), docPath );

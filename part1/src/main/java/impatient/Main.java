@@ -20,15 +20,15 @@
 
 package impatient;
 
-import java.util.Properties;
-
 import cascading.flow.FlowDef;
-import cascading.flow.hadoop2.Hadoop2MR1FlowConnector;
 import cascading.pipe.Pipe;
 import cascading.property.AppProps;
 import cascading.scheme.hadoop.TextDelimited;
 import cascading.tap.Tap;
 import cascading.tap.hadoop.Hfs;
+import com.dataartisans.flink.cascading.FlinkConnector;
+
+import java.util.Properties;
 
 
 public class Main
@@ -44,7 +44,7 @@ public class Main
     AppProps.addApplicationTag( properties, "tutorial:impatient" );
     AppProps.addApplicationTag( properties, "technology:Cascading" );
 
-    Hadoop2MR1FlowConnector flowConnector = new Hadoop2MR1FlowConnector( properties );
+    FlinkConnector flowConnector = new FlinkConnector( properties );
 
     // create the source tap
     Tap inTap = new Hfs( new TextDelimited( true, "\t" ), inPath );
